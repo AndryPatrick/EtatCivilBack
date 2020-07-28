@@ -1,6 +1,7 @@
 package com.person.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.person.service.bean.Commune;
 import com.person.service.bean.CommuneName;
@@ -41,5 +42,9 @@ public interface ServiceLocalisation {
 	Province updateProvince(Long idProvince, Province province);
 
 	List<Province> getProvinceById(Long idProvince);
+
+	List<Region> getRegionById(Long idRegion);
+
+	Region updateRegion(Long idRegion, Region region);
 
 }

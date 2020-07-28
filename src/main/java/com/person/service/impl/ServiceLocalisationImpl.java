@@ -279,5 +279,33 @@ public class ServiceLocalisationImpl implements ServiceLocalisation{
 		
 		return provinceListBean;
 	}
+
+	@Override
+	public List<com.person.service.bean.Region> getRegionById(Long idRegion) {
+		List<com.person.service.bean.Region> regionListBean = new ArrayList<com.person.service.bean.Region>();
+		List<Region> regionListEntity = this.regionRepository.findRegionById(idRegion);
+		
+			for (Region regionEntity : regionListEntity) {
+				com.person.service.bean.Region regionBean = new com.person.service.bean.Region();
+				regionBean.setCode(regionEntity.getProvince().getCode());
+				regionBean.setCodeRegion(regionEntity.getCode());
+				regionBean.setNameRegion(regionEntity.getNameRegion());
+				regionBean.setNomProvince(regionEntity.getProvince().getNom());
+				regionBean.setIdRegion(regionEntity.getId());
+				regionBean.setIdProvince(regionEntity.getProvince().getId());
+				regionListBean.add(regionBean);
+			}
+		
+		return regionListBean;
+	}
+
+	@Override
+	public com.person.service.bean.Region updateRegion(Long idRegion, com.person.service.bean.Region region) {
+			Region regionEntity = this.regionRepository.findOneRegionById(idRegion);
+			regionEntity.setCode(region.getCode());
+			regionEntity.setNameRegion(region.getNameRegion());
+			this.regionRepository.save(regionEntity);
+		return null;
+	}
 	
 }
