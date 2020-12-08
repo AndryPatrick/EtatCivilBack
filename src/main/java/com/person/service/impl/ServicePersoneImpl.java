@@ -36,6 +36,7 @@ public class ServicePersoneImpl implements ServicePerson{
 	
 	@Override
 	public List<Person> getAllPerson() {
+		String name = null;
 		DateUtils utils = new DateUtils();
 		FormatCIN format = new FormatCIN();
 		DatyAntsoratra daty = new DatyAntsoratra();
@@ -46,7 +47,10 @@ public class ServicePersoneImpl implements ServicePerson{
 				Person persBean = new Person();
 				//Commune communeEntity = this.personDAO.getCommuneById(persEntities.getPlaceOfBirth());
 				persBean.setId(persEntities.getId());
-				persBean.setName((persEntities.getName()).toUpperCase());
+				if (persEntities.getName() == null)
+					persBean.setName(persEntities.getName());
+				else 
+				   persBean.setName((persEntities.getName()).toUpperCase());
 				persBean.setFamilyName(lieuHelpers.conversionLieu(persEntities.getFamilyName()));
 				persBean.setDateOfBirth(utils.convertToDatabaseColumn(persEntities.getDateOfBirth()));
 				int ans = this.personDAO.getAnneeById(persEntities.getId());

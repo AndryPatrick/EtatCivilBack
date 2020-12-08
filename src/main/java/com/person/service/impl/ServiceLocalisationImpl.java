@@ -302,8 +302,13 @@ public class ServiceLocalisationImpl implements ServiceLocalisation{
 	@Override
 	public com.person.service.bean.Region updateRegion(Long idRegion, com.person.service.bean.Region region) {
 			Region regionEntity = this.regionRepository.findOneRegionById(idRegion);
-			regionEntity.setCode(region.getCode());
-			regionEntity.setNameRegion(region.getNameRegion());
+			regionEntity.setNameRegion(region.getNameRegion().toUpperCase());
+			if (region.getIdProvince() != null) {
+				Optional<com.person.entity.Province> provinceOpt = this.localisationDAO.findProvinceById(region.getIdProvince());
+				if (provinceOpt.isPresent()) {
+					regionEntity.setProvince(provinceOpt.get());
+				}
+			}
 			this.regionRepository.save(regionEntity);
 		return null;
 	}

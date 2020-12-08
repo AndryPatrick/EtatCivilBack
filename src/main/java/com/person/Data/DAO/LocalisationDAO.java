@@ -50,7 +50,7 @@ public interface LocalisationDAO extends JpaRepository<Region, Long>{
 	@Query("from Commune")
 	List<Commune> getNameCommune();
 
-	@Query(nativeQuery=true, value = "(SELECT max(code) as currentCodeRegion from Region where province_id = ?)")
+	@Query(nativeQuery=true, value = "(SELECT max(code) as currentCodeRegion from region where province_id = ?)")
 	Long getlastCodeByProvince(Province province);
 
 	@Query(nativeQuery = true, value = "(SELECT id from Commune where id = ?1)")
@@ -59,13 +59,13 @@ public interface LocalisationDAO extends JpaRepository<Region, Long>{
 	@Query("SELECT id from Commune where id = ?1")
 	Optional<Commune> getIdCommuneById(Long idCommune);
 
-	@Query(nativeQuery = true, value = "SELECT max(code) as currentCodeDistrict from District where region_id = ?1")
+	@Query(nativeQuery = true, value = "SELECT max(code) as currentCodeDistrict from district where region_id = ?1")
 	Long getlastCodeByRegion(Long idRegion);
 
-	@Query(nativeQuery = true, value = "SELECT max(code) as currentCodeProvince from Province")
+	@Query(nativeQuery = true, value = "SELECT max(code) as currentCodeProvince from province")
 	int getLastCodeProvince();
 	
-	@Query(nativeQuery = true, value = "SELECT max(code) as currentCodeCommune from Commune where district_id = ?1")
+	@Query(nativeQuery = true, value = "SELECT max(code) as currentCodeCommune from commune where district_id = ?1")
 	Long getLastCodeByDistrict(Long idDistrict);
 
 	@Query("from Commune where id = ?1")

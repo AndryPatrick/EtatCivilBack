@@ -11,7 +11,7 @@ import com.person.entity.Person;
 
 public interface PersonDAO extends JpaRepository<Person, Long>{
 
-	@Query(nativeQuery = true, value = "(SELECT p.*,c.* FROM Person p INNER JOIN commune c where p.place_of_birth = c.id)")
+	@Query(nativeQuery = true, value = "(SELECT p.*,c.* FROM person p INNER JOIN commune c where p.place_of_birth = c.id)")
 	List<Person> getListPerson();
 
 	@Query("FROM Person WHERE identityNumber = ?1")
@@ -21,7 +21,7 @@ public interface PersonDAO extends JpaRepository<Person, Long>{
 			+ "( SELECT  max(identity_number) from Person where place_of_delivry = 'Antananarivo')")
 	Person getLastIdentityNumber(); */
 	
-	@Query(nativeQuery = true, value = "(SELECT MAX(RIGHT(identity_number,5)) as maxIdentity from Person WHERE place_of_birth =?)")
+	@Query(nativeQuery = true, value = "(SELECT MAX(RIGHT(identity_number,5)) as maxIdentity from person WHERE place_of_birth =?)")
 	Long getLastIdentityNumber(long placeOfBirth); 
 	
 	/*@Query(nativeQuery = true, value = " SELECT *, max(identity_number) from Person where place_of_delivry = ?1")
@@ -42,13 +42,13 @@ public interface PersonDAO extends JpaRepository<Person, Long>{
 	@Query("FROM Commune where id=?1")
 	Commune getNomCommuneByPlaceOfBirth(Commune placeOfBirth);
 	
-	@Query(nativeQuery = true, value = "(SELECT YEAR(date_of_birth) AS ans FROM Person where id = ?1)")
+	@Query(nativeQuery = true, value = "(SELECT YEAR(date_of_birth) AS ans FROM person where id = ?1)")
 	int getAnneeById(long idPerson);
 
-	@Query(nativeQuery = true, value = "(SELECT MONTH(date_of_birth) AS mois FROM Person where id = ?1)")
+	@Query(nativeQuery = true, value = "(SELECT MONTH(date_of_birth) AS mois FROM person where id = ?1)")
 	int getMonthByID(long id);
 	
-	@Query(nativeQuery = true, value = "(SELECT DAY(date_of_birth) AS jour FROM Person where id = ?1)")
+	@Query(nativeQuery = true, value = "(SELECT DAY(date_of_birth) AS jour FROM person where id = ?1)")
 	int getDaysByID(long id);
 
 	
